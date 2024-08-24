@@ -1,0 +1,125 @@
+{
+    "reviews": [
+      {
+        "professor": "Dr. Sarah Johnson",
+        "subject": "Physics",
+        "stars": 4,
+        "review": "Dr. Johnson explains complex concepts clearly. Her enthusiasm for physics is contagious!"
+      },
+      {
+        "professor": "Prof. Michael Chang",
+        "subject": "Computer Science",
+        "stars": 5,
+        "review": "Brilliant instructor. Prof. Chang's projects are challenging but incredibly rewarding."
+      },
+      {
+        "professor": "Dr. Emily Rodriguez",
+        "subject": "Biology",
+        "stars": 3,
+        "review": "Lectures can be dry, but Dr. Rodriguez is knowledgeable and always willing to help during office hours."
+      },
+      {
+        "professor": "Prof. David Kim",
+        "subject": "Mathematics",
+        "stars": 5,
+        "review": "Prof. Kim makes calculus understandable and even enjoyable. Best math professor I've had!"
+      },
+      {
+        "professor": "Dr. Lisa Patel",
+        "subject": "Psychology",
+        "stars": 4,
+        "review": "Engaging lectures and interesting assignments. Dr. Patel brings real-world examples into the classroom."
+      },
+      {
+        "professor": "Prof. Robert Anderson",
+        "subject": "History",
+        "stars": 2,
+        "review": "Lectures are monotonous, and Prof. Anderson seems disinterested in student questions."
+      },
+      {
+        "professor": "Dr. Jennifer Lee",
+        "subject": "Chemistry",
+        "stars": 5,
+        "review": "Dr. Lee's passion for chemistry is evident. Her labs are well-organized and informative."
+      },
+      {
+        "professor": "Prof. Thomas Wright",
+        "subject": "English Literature",
+        "stars": 4,
+        "review": "Prof. Wright's analysis of classic literature is insightful. Assignments encourage critical thinking."
+      },
+      {
+        "professor": "Dr. Maria Garcia",
+        "subject": "Sociology",
+        "stars": 3,
+        "review": "Interesting course material, but Dr. Garcia's grading can be inconsistent."
+      },
+      {
+        "professor": "Prof. James Wilson",
+        "subject": "Economics",
+        "stars": 4,
+        "review": "Prof. Wilson explains complex economic theories in an accessible way. Highly recommended."
+      },
+      {
+        "professor": "Dr. Rachel Green",
+        "subject": "Environmental Science",
+        "stars": 5,
+        "review": "Dr. Green's passion for environmental issues is inspiring. Field trips were a highlight of the course."
+      },
+      {
+        "professor": "Prof. Daniel Brown",
+        "subject": "Philosophy",
+        "stars": 2,
+        "review": "Prof. Brown often goes off-topic and seems unprepared for lectures. Disappointing experience."
+      },
+      {
+        "professor": "Dr. Olivia Martinez",
+        "subject": "Neuroscience",
+        "stars": 4,
+        "review": "Challenging course, but Dr. Martinez is always available to help students understand difficult concepts."
+      },
+      {
+        "professor": "Prof. Christopher Lee",
+        "subject": "Political Science",
+        "stars": 3,
+        "review": "Prof. Lee presents balanced viewpoints but could improve on encouraging class discussions."
+      },
+      {
+        "professor": "Dr. Amanda Taylor",
+        "subject": "Art History",
+        "stars": 5,
+        "review": "Dr. Taylor's lectures are like guided tours through art museums. Absolutely fascinating!"
+      },
+      {
+        "professor": "Prof. Kevin Zhang",
+        "subject": "Mechanical Engineering",
+        "stars": 4,
+        "review": "Prof. Zhang's practical approach to engineering problems is refreshing. Good balance of theory and application."
+      },
+      {
+        "professor": "Dr. Sophia Nguyen",
+        "subject": "Linguistics",
+        "stars": 3,
+        "review": "Dr. Nguyen is knowledgeable, but her assignments can be unclear. Office hours are helpful."
+      },
+      {
+        "professor": "Prof. William Carter",
+        "subject": "Business Administration",
+        "stars": 5,
+        "review": "Prof. Carter's real-world experience in business adds tremendous value to the course. Excellent mentor."
+      },
+      {
+        "professor": "Dr. Elizabeth Morris",
+        "subject": "Anthropology",
+        "stars": 4,
+        "review": "Dr. Morris brings anthropology to life with her engaging storytelling and diverse case studies."
+      },
+      {
+        "professor": "Prof. Alexander Ivanov",
+        "subject": "Music Theory",
+        "stars": 2,
+        "review": "Prof. Ivanov seems more interested in his research than teaching. Lectures are often confusing."
+      }
+    ]
+  }
+  
