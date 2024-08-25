@@ -1,8 +1,11 @@
 'use client';
-import { Box, Button, Stack, TextField, Paper, Typography } from "@mui/material";
+import * as React from 'react';
+import { Box, Button, Stack, TextField, Paper, Typography, IconButton, Toolbar, AppBar } from "@mui/material";
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
+import AssistantIcon from '@mui/icons-material/Assistant';
+
 
 export default function Home() {
 
@@ -92,22 +95,35 @@ export default function Home() {
       justifyContent="center"
       alignItems="center"
       sx={{
-         backgroundColor: "#5865F2",
+          backgroundImage: `url("data:image/svg+xml,%3Csvg%20id='patternId'%20width='100%25'%20height='100%25'%20xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern%20id='a'%20patternUnits='userSpaceOnUse'%20width='20'%20height='20'%20patternTransform='scale(2)%20rotate(0)'%3E%3Crect%20x='0'%20y='0'%20width='100%25'%20height='100%25'%20fill='hsla(228,%2090%25,%208%25,%201)'/%3E%3Cpath%20d='M10-6V6M10%2014v12M26%2010H14M6%2010H-6'%20stroke-linecap='square'%20stroke-width='1'%20stroke='hsla(258.5,59.4%25,59.4%25,1)'%20fill='none'/%3E%3C/pattern%3E%3C/defs%3E%3Crect%20width='800%25'%20height='800%25'%20transform='translate(0,0)'%20fill='url(%23a)'/%3E%3C/svg%3E")`,
+          backgroundColor: "#01061a",
       }}
     >
-      <Typography variant="h4" >Search For Professor of Your Type</Typography>
+
+
+
+      <AppBar position="static" sx={{ backgroundColor: '#01061a', color: '#805AD5' }}>
+        <Toolbar>
+          <IconButton size="large" edge="start" aria-label="menu">
+            <AssistantIcon sx={{ color: '#805AD5' }} />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, letterSpacing: 2, color: '#805AD5' }}>
+            Rate My Professor
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
 
       <Stack
         direction="column"
         width="70vw"
         height="700px"
-        border="2px solid lightblue"
-        p='15px 20px'
+        p="15px 20px"
         spacing={3}
         sx={{
           mx: "auto",
           borderRadius: "16px",
-          backgroundColor:'#b9dbe1'
+          backgroundColor: '#01061a',
         }}
       >
         <Stack
@@ -128,8 +144,8 @@ export default function Home() {
               <Box
                 bgcolor={
                   message.role === "assistant"
-                    ? "primary.main"
-                    : "secondary.main"
+                    ? "#805AD5"
+                    : "primary.main"
                 }
                 color="white"
                 borderRadius={16}
@@ -142,20 +158,43 @@ export default function Home() {
           <div ref={messagesEndRef} />
         </Stack>
         <Stack direction="row" spacing={2}>
-          <TextField
-            label="Message"
-            fullWidth
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={loading}
-            sx={{ borderRadius: "16px" }} // Make the TextField rounded
-          />
+        <TextField
+          label="Message"
+          fullWidth
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          disabled={loading}
+          sx={{
+            borderRadius: "16px",
+            "& .MuiOutlinedInput-root": {
+              backgroundColor: "#01061a", 
+              color: "#f5f5f7", // Light text color
+              "& fieldset": {
+                borderColor: "#805AD5", // Border color
+              },
+              "&:hover fieldset": {
+                borderColor: "#9f7aea", // Border color on hover
+              },
+              "&.Mui-focused fieldset": {
+                borderColor: "#c4b5fd", // Border color when focused
+              },
+            },
+            "& .MuiInputLabel-root": {
+              color: "#f5f5f7", // Light label color
+            },
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "#c4b5fd", // Label color when focused
+            },
+          }}
+        />
+
           <Button
             variant="contained"
             onClick={sendMessage}
             disabled={loading}
             aria-label="Send message"
+            sx={{backgroundColor: "#805AD5"}}
           >
             Send
           </Button>
