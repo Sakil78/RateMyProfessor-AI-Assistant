@@ -3,7 +3,7 @@ import { Box, Stack, TextField, CircularProgress, IconButton } from '@mui/materi
 import { useState, useRef, useEffect } from 'react'
 import { ArrowUpward } from "@mui/icons-material";
 import ReactMarkdown from "react-markdown";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import IntroMessage from "./components/intromessage"; 
 
 export default function Home() {
