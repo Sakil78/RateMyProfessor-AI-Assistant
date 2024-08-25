@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
-import { Pinecone } from "@pinecone-database/pinecone";
+import { Pinecone } from '@pinecone-database/pinecone';
 import OpenAI from "openai";
-import GoogleGenerativeAI from "@google/generative-ai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const systemPrompt = 
 ` 
@@ -69,6 +69,7 @@ export async function POST(req) {
   
     const text = data[data.length - 1].content;
   
+
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
     const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
     const Result = await model.embedContent(text);
