@@ -3,49 +3,98 @@ import { NextResponse } from "next/server";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { OpenAI } from "openai";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import axios from "axios";
+import * as cheerio from "cheerio";
 
-const systemPrompt = 
-`
-**RateMyProfessor Agent System Prompt**
+import fetch from "cross-fetch";
 
-You are an AI assistant designed to help students find professors based on their queries using a Retrieval-Augmented Generation (RAG) system. Your primary function is to analyze student queries, retrieve relevant information from the professor review database, and provide helpful recommendations.
+global.fetch = fetch;
 
-**Your Capabilities:**
+// Function to extract URLs from a text
+function extractUrls(text) {
+  const urlRegex = /https:\/\/www\.ratemyprofessors\.com\/professor\/\d+/g;
+  return text.match(urlRegex) || [];
+}
 
-1. You have access to a comprehensive database of professor reviews, including information such as professor names, subjects taught, star ratings, and detailed review comments.
-2. You use RAG to retrieve and rank the most relevant professor information based on the student's query.
-3. For each query, you provide information on the top 3 most relevant professor.
+// Function to replace URLs in a text with processed data
+function replaceUrlsInText(text, urls, processed_data) {
+  for (let i = 0; i < urls.length; i++) {
+    text = text.replace(
+      urls[i],
+      `${processed_data[i].id} with ${processed_data[i].metadata["rating"]} star rating in ${processed_data[i].metadata["department"]}`
+    );
+  }
+  return text;
+}
 
-**Your Responses Should:**
+// Function to scrape a Rate My Professors webpage
+async function scrapeWebpage(url) {
+  try {
+    const { data } = await axios.get(url);
+    const $ = cheerio.load(data);
+    const name = $('div.NameTitle__Name-dowf0z-0 span').first().text().trim();
+    const lastName = $('div.NameTitle__Name-dowf0z-0 span.NameTitle__LastNameWrapper-dowf0z-2').first().text().trim();
+    const fullName = `${name} ${lastName}`;
+    const ratingText = $('div.RatingValue__Numerator-qw8sqy-2.liyUjw').text().trim();
+    const comments = $('div.Comments__StyledComments-dzzyvm-0').text().trim();
+    const departmentName = $('a.TeacherDepartment__StyledDepartmentLink-fl79e8-0').text().trim();
 
-1. Be concise yet informative, focusing on the most relevant details for each professor.
-2. Include the professor's name, subject, star rating, and a brief summary of their strengths or notable characteristics.
-3. Highlight any specific aspects mentioned in the student's query (e.g., teaching style, course difficulty, grading fairness).
-4. Provide a balanced view, mentioning both positives and potential drawbacks if relevant.
+    return {
+      name: fullName,
+      rating: ratingText,
+      review: comments,
+      department: departmentName,
+    };
+  } catch (error) {
+    console.error(`Failed to retrieve the webpage. Error: ${error}`);
+    return null;
+  }
+}
 
-**Response Format:**
+// Function to process the text, create embeddings, and upsert to Pinecone
+async function upsertPC(text, client, index) {
+  const urls = extractUrls(text);
+  const processed_data = [];
 
-For each query, structure your response as follows:
+  for (const url of urls) {
+    const data = await scrapeWebpage(url);
+    if (!data) continue;
 
-1. A brief introduction addressing the student's query.
-2. Top 3 Professor Recommendations:
-   * Professor Name (Subject)-Star Rating
-   * Brief summary of the professor's teaching style and other relevant details from reviews.
-3. A concise conclusion with any additional advice or suggestions for the students.
+    try {
+      const response = await client.embeddings.create({
+        input: data.review,
+        model: "text-embedding-ada-002",
+      });
 
-**Guidelines:**
+      const embedding = response.data[0].embedding;
+      processed_data.push({
+        values: embedding,
+        id: data.name,
+        metadata: {
+          rating: data.rating,
+          review: data.review,
+          department: data.department,
+        },
+      });
+    } catch (error) {
+      console.error(`Failed to create embedding. Error: ${error}`);
+    }
+  }
 
-- Maintain a neutral and objective tone.
-- If the query is too vague or broad, ask for clarification to provide more accurate recommendations.
-- If no professors match the specific criteria, suggest the closest alternatives and explain why.
-- Be prepared to answer follow-up questions about specific professors or compare multiple professors.
-- Do not invent or fabricate information. If you dont have sufficient data, state this clearly.
-- Respect privacy by not sharing any personal information that isn't explicitly stated in the official reviews. 
-- Make the output a little short and coincise
+  try {
+    const upsert_response = await index.upsert(processed_data);
+    return replaceUrlsInText(text, urls, processed_data);
+  } catch (error) {
+    console.error(`Failed to upsert vectors. Error: ${error}`);
+    return null;
+  }
+}
 
-**Remember, your goal is to help students make informed decisions based on professor reviews and ratings.**
-`
-;
+const systemPrompt = `
+You are a rate my professor agent to help students find classes, that takes in user questions and answers them.
+For every user question, the top 3 professors that match the user question are returned.
+Use them to answer the question if needed. Write each sentence in bullet points.
+`;
 
 export async function POST(req) {
   const data = await req.json();
@@ -58,18 +107,26 @@ export async function POST(req) {
     apiKey: process.env.OPENROUTER_API_KEY,
   });
 
-  const text = data[data.length - 1].content;
+  let text = data[data.length - 1].content;
 
+  // Process any Rate My Professors URLs found in the text
+  if (extractUrls(text).length > 0) {
+    text = await upsertPC(text, openai, index);
+  }
+
+  // Embedding creation using Google Generative AI
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ model: "text-embedding-004" });
   const Result = await model.embedContent(text);
   const embeddings = Result.embedding;
+
+  // Query Pinecone with the generated embeddings
   const results = await index.query({
     topK: 3,
-    vector: embeddings['values'],
+    vector: embeddings["values"],
     includeMetadata: true,
   });
-  
+
   let resultString = "\n\nReturned results from vector db {done automatically}";
   results.matches.forEach((match) => {
     resultString += `\n
@@ -77,8 +134,7 @@ export async function POST(req) {
     Review: ${match.metadata.review}
     Subject: ${match.metadata.subject}
     Stars: ${match.metadata.stars}
-    \n\n`
-    ;
+    \n\n`;
   });
 
   const lastMessage = data[data.length - 1];
@@ -88,7 +144,7 @@ export async function POST(req) {
   const completion = await openai.chat.completions.create({
     model: "meta-llama/llama-3.1-8b-instruct:free",
     messages: [
-      { role: "system", content: systemPrompt },
+      { role: "user", content: systemPrompt },
       ...lastDataWithoutLastMessage,
       { role: "user", content: lastMessageContent },
     ],
@@ -113,7 +169,6 @@ export async function POST(req) {
       }
     },
   });
-
 
   return new NextResponse(stream);
 }

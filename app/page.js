@@ -1,103 +1,93 @@
-"use client";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useState, useRef, useEffect } from "react";
+'use client'
+import { Box, Stack, TextField, CircularProgress, IconButton } from '@mui/material'
+import { useState, useRef, useEffect } from 'react'
+import { ArrowUpward } from "@mui/icons-material";
 import ReactMarkdown from "react-markdown";
+import Navbar from "./components/navbar";
+import IntroMessage from "./components/intromessage"; 
 
 export default function Home() {
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      content:
-        "Hello, I am Rate My Professor Support Assistant. How can I help you today?",
-    },
-  ]);
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [lastMessageTime, setLastMessageTime] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [introVisible, setIntroVisible] = useState(true);
+  const [message, setMessage] = useState('');
   const messagesEndRef = useRef(null);
 
-  const sanitizeMessage = (msg) => {
-    // Optional: Refine this function based on specific needs
-    return msg.trim().replace(/\b(\w+)\s+\1\b/g, '$1').trim();
-  };
+  const [messages, setMessages] = useState([
+    {
+      role: 'assistant',
+      content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
+    },
+  ]);
 
+  // Scroll to the bottom whenever messages change
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // Handle sending a message
   const sendMessage = async () => {
-    if (message.trim() === "") return; // Prevent sending empty messages
-
-    const now = Date.now();
-    if (now - lastMessageTime < 1000) { // 1 second cooldown
-      return;
+    if (introVisible) {
+      setIntroVisible(false);
     }
-    setLastMessageTime(now);
 
-    setLoading(true);
-    const sanitizedMessage = sanitizeMessage(message);
-    setMessage("");
+    const userMessage = message.trim();
+    if (userMessage === '') return;
+
+    setMessage('');
+    setIsLoading(true);
     setMessages((prevMessages) => [
       ...prevMessages,
-      { role: "user", content: sanitizedMessage },
-      { role: "assistant", content: "" },
+      { role: 'user', content: userMessage },
+      { role: 'assistant', content: '' },
     ]);
 
     try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
+      const response = await fetch('/api/chat', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify([...messages, { role: "user", content: sanitizedMessage }]),
+        body: JSON.stringify([...messages, { role: 'user', content: userMessage }]),
       });
+
+      if (!response.body) {
+        throw new Error("Response body is null");
+      }
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
 
-      let buffer = "";
-      let done = false;
-      
-      while (!done) {
-        const { done: isDone, value } = await reader.read();
-        done = isDone;
-        const text = decoder.decode(value || new Uint8Array(), { stream: true });
-        buffer += text;
-
-        if (buffer.length > 100 || done) { // Adjust buffer size as needed
-          setMessages((prevMessages) => {
-            const updatedMessages = [...prevMessages];
-            const lastMessage = updatedMessages[updatedMessages.length - 1];
-            lastMessage.content += buffer;
-            return updatedMessages;
-          });
-          buffer = "";
+      const processText = async ({ done, value }) => {
+        if (done) {
+          setIsLoading(false);
+          return;
         }
-      }
+        const text = decoder.decode(value || new Uint8Array(), { stream: true });
+        setMessages((prevMessages) => {
+          const lastMessage = prevMessages[prevMessages.length - 1];
+          const otherMessages = prevMessages.slice(0, prevMessages.length - 1);
+          return [
+            ...otherMessages,
+            { ...lastMessage, content: lastMessage.content + text },
+          ];
+        });
+        return reader.read().then(processText);
+      };
+
+      await reader.read().then(processText);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          role: "assistant",
-          content: `Error: ${error.message}. Please try again.`,
-        },
-      ]);
-    } finally {
-      setLoading(false);
-      scrollToBottom();
+      setIsLoading(false);
     }
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter" && !loading) {
+  // Handle the Enter key press to send the message
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
       sendMessage();
     }
   };
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
 
   return (
     <Box
@@ -105,24 +95,23 @@ export default function Home() {
       height="100vh"
       display="flex"
       flexDirection="column"
-      justifyContent="center"
+      justifyContent="space-between"
       alignItems="center"
     >
-      <Typography variant="h4" gutterBottom>
-        Search For Professor of Your Type
-      </Typography>
+      <Navbar />
+
+      <IntroMessage introVisible={introVisible} />
 
       <Stack
         direction="column"
-        width="70vw"
-        height="700px"
-        border="2px solid lightblue"
-        p='15px 20px'
+        width="100%"
+        maxWidth="600px"
+        height="90%"
+        borderRadius={2}
+        bgcolor="rgba(255, 255, 255, 0.5)"
+        py={2}
+        px={1}
         spacing={3}
-        sx={{
-          mx: "auto",
-          borderRadius: "16px",
-        }}
       >
         <Stack
           direction="column"
@@ -130,43 +119,101 @@ export default function Home() {
           flexGrow={1}
           overflow="auto"
           maxHeight="100%"
+          fontSize={14}
+          paddingX={2}
+          sx={{
+            overflowX: "hidden",
+            "&::-webkit-scrollbar": {
+              width: "8px",
+            },
+            "&::-webkit-scrollbar-track": {
+              background: "#edebed",
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb": {
+              background: "#1e3557",
+              borderRadius: "10px",
+            },
+            "&::-webkit-scrollbar-thumb:hover": {
+              background: "#162842",
+            },
+          }}
         >
-          {messages.map((msg, index) => (
+          {messages.map((message, index) => (
             <Box
               key={index}
               display="flex"
-              justifyContent={msg.role === "assistant" ? "flex-start" : "flex-end"}
+              justifyContent={
+                message.role === "assistant" ? "flex-start" : "flex-end"
+              }
             >
               <Box
-                bgcolor={msg.role === "assistant" ? "primary.main" : "secondary.main"}
-                color="white"
-                borderRadius='25px'
-                p={3}
+                bgcolor={message.role === "assistant" ? "#1e3557" : "white"}
+                color={message.role === "assistant" ? "white" : "black"}
+                borderRadius={5}
+                boxShadow={5}
+                p={2}
+                maxWidth="80%"
               >
-                <ReactMarkdown>{msg.content}</ReactMarkdown>
+                <ReactMarkdown>{message.content}</ReactMarkdown>
               </Box>
             </Box>
           ))}
           <div ref={messagesEndRef} />
         </Stack>
-        <Stack direction="row" spacing={2}>
+
+        <Stack
+          direction="row"
+          spacing={2}
+          alignItems="center"
+          borderRadius={10}
+          boxShadow={3}
+          sx={{
+            maxWidth: "600px",
+            width: "100%",
+            maxHeight: "60px",
+            bgcolor: "white",
+          }}
+        >
           <TextField
-            label="Message"
+            placeholder="Ask Rate My Professor Bot anything.."
             fullWidth
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={handleKeyDown}
-            disabled={loading}
-            sx={{ borderRadius: "16px" }} // Make the TextField rounded
+            onKeyDown={handleKeyPress}
+            disabled={isLoading}
+            variant="outlined"
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                borderRadius: "25px",
+                bgcolor: "white",
+                fontFamily: "'Nunito', sans-serif",
+                fontSize: "14px",
+                boxShadow: "none",
+                "& fieldset": {
+                  border: "none",
+                },
+              },
+              "& .MuiInputBase-input": {
+                padding: "13px 20px",
+              },
+            }}
           />
-          <Button
-            variant="contained"
+          <IconButton
             onClick={sendMessage}
-            disabled={loading}
-            aria-label="Send message"
+            disabled={isLoading || !message.trim()}
+            sx={{
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+              color: "black",
+              "&:hover": {
+                bgcolor: "#e5ece9",
+              },
+            }}
           >
-            {loading ? "Sending..." : "Send"}
-          </Button>
+            {isLoading ? <CircularProgress size={24} /> : <ArrowUpward />}
+          </IconButton>
         </Stack>
       </Stack>
     </Box>
