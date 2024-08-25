@@ -1,125 +1,184 @@
 {
-    "reviews": [
+  "reviews": [
       {
-        "professor": "Dr. Sarah Johnson",
-        "subject": "Physics",
-        "stars": 4,
-        "review": "Dr. Johnson explains complex concepts clearly. Her enthusiasm for physics is contagious!"
+          "professor": "Dr. Emily Johnson",
+          "subject": "Mathematics",
+          "stars": 5,
+          "review": "Dr. Johnson, who teaches Mathematics, explains complex concepts clearly. Her classes are engaging and well-structured. She is an expert in algebraic topology."
       },
       {
-        "professor": "Prof. Michael Chang",
-        "subject": "Computer Science",
-        "stars": 5,
-        "review": "Brilliant instructor. Prof. Chang's projects are challenging but incredibly rewarding."
+          "professor": "Prof. Robert Smith",
+          "subject": "Physics",
+          "stars": 4,
+          "review": "Prof. Smith, a Physics professor, is very knowledgeable, especially in quantum mechanics. His lectures can be fast-paced but are rich in content."
       },
       {
-        "professor": "Dr. Emily Rodriguez",
-        "subject": "Biology",
-        "stars": 3,
-        "review": "Lectures can be dry, but Dr. Rodriguez is knowledgeable and always willing to help during office hours."
+          "professor": "Dr. Alice Turner",
+          "subject": "Chemistry",
+          "stars": 3,
+          "review": "Dr. Turner teaches Chemistry and specializes in organic chemistry. While she knows her material well, her lectures can be a bit dry. However, her labs are well-organized."
       },
       {
-        "professor": "Prof. David Kim",
-        "subject": "Mathematics",
-        "stars": 5,
-        "review": "Prof. Kim makes calculus understandable and even enjoyable. Best math professor I've had!"
+          "professor": "Prof. Michael Brown",
+          "subject": "History",
+          "stars": 2,
+          "review": "Prof. Brown, who teaches History, focuses on medieval European history. Unfortunately, his lectures are mostly reading from slides, which makes them less engaging."
       },
       {
-        "professor": "Dr. Lisa Patel",
-        "subject": "Psychology",
-        "stars": 4,
-        "review": "Engaging lectures and interesting assignments. Dr. Patel brings real-world examples into the classroom."
+          "professor": "Dr. Laura Wilson",
+          "subject": "Biology",
+          "stars": 4,
+          "review": "Dr. Wilson teaches Biology and is an expert in cellular biology. She is very approachable and helpful, although her lectures can sometimes be repetitive."
       },
       {
-        "professor": "Prof. Robert Anderson",
-        "subject": "History",
-        "stars": 2,
-        "review": "Lectures are monotonous, and Prof. Anderson seems disinterested in student questions."
+          "professor": "Prof. David Lee",
+          "subject": "Computer Science",
+          "stars": 5,
+          "review": "Prof. Lee is fantastic in teaching Computer Science, especially in the field of artificial intelligence. He breaks down programming concepts in a way that's easy to understand."
       },
       {
-        "professor": "Dr. Jennifer Lee",
-        "subject": "Chemistry",
-        "stars": 5,
-        "review": "Dr. Lee's passion for chemistry is evident. Her labs are well-organized and informative."
+          "professor": "Dr. Sarah Martinez",
+          "subject": "Economics",
+          "stars": 3,
+          "review": "Dr. Martinez specializes in macroeconomics and teaches Economics. She is knowledgeable, but her grading criteria are not very clear. Attending office hours is a must."
       },
       {
-        "professor": "Prof. Thomas Wright",
-        "subject": "English Literature",
-        "stars": 4,
-        "review": "Prof. Wright's analysis of classic literature is insightful. Assignments encourage critical thinking."
+          "professor": "Prof. James Taylor",
+          "subject": "Philosophy",
+          "stars": 4,
+          "review": "Prof. Taylor, who teaches Philosophy, encourages critical thinking. His expertise in existentialism shines through, although he sometimes goes off-topic in lectures."
       },
       {
-        "professor": "Dr. Maria Garcia",
-        "subject": "Sociology",
-        "stars": 3,
-        "review": "Interesting course material, but Dr. Garcia's grading can be inconsistent."
+          "professor": "Dr. Karen White",
+          "subject": "Psychology",
+          "stars": 5,
+          "review": "Dr. White is excellent in teaching Psychology, with a strong focus on cognitive psychology. Her lectures are insightful, and she's very supportive of her students."
       },
       {
-        "professor": "Prof. James Wilson",
-        "subject": "Economics",
-        "stars": 4,
-        "review": "Prof. Wilson explains complex economic theories in an accessible way. Highly recommended."
+          "professor": "Prof. Richard Harris",
+          "subject": "Sociology",
+          "stars": 2,
+          "review": "Prof. Harris teaches Sociology with a focus on social stratification. Unfortunately, he doesn't seem very interested in engaging with students."
       },
       {
-        "professor": "Dr. Rachel Green",
-        "subject": "Environmental Science",
-        "stars": 5,
-        "review": "Dr. Green's passion for environmental issues is inspiring. Field trips were a highlight of the course."
+          "professor": "Dr. Jessica Thompson",
+          "subject": "English Literature",
+          "stars": 4,
+          "review": "Dr. Thompson, an English Literature professor, specializes in modernist literature. Her classes are well-organized, and she provides great feedback on assignments."
       },
       {
-        "professor": "Prof. Daniel Brown",
-        "subject": "Philosophy",
-        "stars": 2,
-        "review": "Prof. Brown often goes off-topic and seems unprepared for lectures. Disappointing experience."
+          "professor": "Prof. William Clark",
+          "subject": "Political Science",
+          "stars": 3,
+          "review": "Prof. Clark teaches Political Science and has a deep understanding of international relations. His lectures can be monotonous, but the material is interesting."
       },
       {
-        "professor": "Dr. Olivia Martinez",
-        "subject": "Neuroscience",
-        "stars": 4,
-        "review": "Challenging course, but Dr. Martinez is always available to help students understand difficult concepts."
+          "professor": "Dr. Megan Lewis",
+          "subject": "Environmental Science",
+          "stars": 5,
+          "review": "Dr. Lewis is passionate about Environmental Science, particularly in the area of climate change. She makes learning fun and highly recommends her course."
       },
       {
-        "professor": "Prof. Christopher Lee",
-        "subject": "Political Science",
-        "stars": 3,
-        "review": "Prof. Lee presents balanced viewpoints but could improve on encouraging class discussions."
+          "professor": "Prof. Christopher Young",
+          "subject": "Statistics",
+          "stars": 4,
+          "review": "Prof. Young, who teaches Statistics, has a strong background in biostatistics. His classes are challenging, but he is very helpful during office hours."
       },
       {
-        "professor": "Dr. Amanda Taylor",
-        "subject": "Art History",
-        "stars": 5,
-        "review": "Dr. Taylor's lectures are like guided tours through art museums. Absolutely fascinating!"
+          "professor": "Dr. Linda Adams",
+          "subject": "Anthropology",
+          "stars": 3,
+          "review": "Dr. Adams specializes in cultural anthropology and teaches Anthropology. She has a lot of knowledge, but her lectures can be hard to follow at times."
       },
       {
-        "professor": "Prof. Kevin Zhang",
-        "subject": "Mechanical Engineering",
-        "stars": 4,
-        "review": "Prof. Zhang's practical approach to engineering problems is refreshing. Good balance of theory and application."
+          "professor": "Prof. Thomas Hall",
+          "subject": "Art History",
+          "stars": 5,
+          "review": "Prof. Hall teaches Art History with a focus on Renaissance art. His passion for art is infectious, making his lectures both informative and entertaining."
       },
       {
-        "professor": "Dr. Sophia Nguyen",
-        "subject": "Linguistics",
-        "stars": 3,
-        "review": "Dr. Nguyen is knowledgeable, but her assignments can be unclear. Office hours are helpful."
+          "professor": "Dr. Amanda King",
+          "subject": "Geology",
+          "stars": 4,
+          "review": "Dr. King, a Geology professor, is great at explaining difficult concepts in mineralogy. However, her exams can be tough."
       },
       {
-        "professor": "Prof. William Carter",
-        "subject": "Business Administration",
-        "stars": 5,
-        "review": "Prof. Carter's real-world experience in business adds tremendous value to the course. Excellent mentor."
+          "professor": "Prof. Brian Scott",
+          "subject": "Music Theory",
+          "stars": 2,
+          "review": "Prof. Scott teaches Music Theory with an emphasis on counterpoint. Unfortunately, his teaching style is not very engaging, making it hard to stay focused."
       },
       {
-        "professor": "Dr. Elizabeth Morris",
-        "subject": "Anthropology",
-        "stars": 4,
-        "review": "Dr. Morris brings anthropology to life with her engaging storytelling and diverse case studies."
+          "professor": "Dr. Patricia Moore",
+          "subject": "Linguistics",
+          "stars": 4,
+          "review": "Dr. Moore teaches Linguistics, specializing in phonetics. Her assignments are interesting, but the workload is heavy."
       },
       {
-        "professor": "Prof. Alexander Ivanov",
-        "subject": "Music Theory",
-        "stars": 2,
-        "review": "Prof. Ivanov seems more interested in his research than teaching. Lectures are often confusing."
+          "professor": "Prof. George Evans",
+          "subject": "Mathematics",
+          "stars": 3,
+          "review": "Prof. Evans, who teaches Mathematics, has expertise in differential equations. His explanations are sometimes confusing, but the textbook helps a lot."
+      },
+      {
+          "professor": "Dr. Ramesh Gupta",
+          "subject": "Physics",
+          "stars": 5,
+          "review": "Dr. Gupta, an expert in theoretical physics, teaches Physics. He makes complex topics easy to understand, and his passion for the subject is evident in every lecture."
+      },
+      {
+          "professor": "Prof. Anjali Sharma",
+          "subject": "Chemistry",
+          "stars": 4,
+          "review": "Prof. Sharma teaches Chemistry with a focus on inorganic chemistry. Her classes are well-structured, and she is very patient with students. Her labs are particularly well-organized."
+      },
+      {
+          "professor": "Dr. Manish Patel",
+          "subject": "Computer Science",
+          "stars": 5,
+          "review": "Dr. Patel, who specializes in machine learning, teaches Computer Science. He makes coding fun and interactive. His assignments are challenging but rewarding."
+      },
+      {
+          "professor": "Prof. Suman Singh",
+          "subject": "Biology",
+          "stars": 3,
+          "review": "Prof. Singh, a Biology professor with a focus on genetics, is knowledgeable, but his lectures can be a bit dry. He is, however, very approachable for questions."
+      },
+      {
+          "professor": "Dr. Pooja Desai",
+          "subject": "Mathematics",
+          "stars": 4,
+          "review": "Dr. Desai teaches Mathematics and specializes in number theory. She is very thorough in her teaching and ensures every student understands the material before moving on."
+      },
+      {
+          "professor": "Prof. Rajesh Nair",
+          "subject": "Mechanical Engineering",
+          "stars": 4,
+          "review": "Prof. Nair, who teaches Mechanical Engineering, has expertise in thermodynamics. His classes are practical and hands-on, emphasizing understanding over rote learning."
+      },
+      {
+          "professor": "Dr. Priya Menon",
+          "subject": "English Literature",
+          "stars": 5,
+          "review": "Dr. Menon teaches English Literature and specializes in postcolonial studies. She brings literature to life with profound and thought-provoking insights."
+      },
+      {
+          "professor": "Prof. Arjun Kapoor",
+          "subject": "Political Science",
+          "stars": 3,
+          "review": "Prof. Kapoor, a Political Science professor with a focus on comparative politics, provides informative lectures, but he tends to go off on tangents."
+      },
+      {
+          "professor": "Dr. Neha Agarwal",
+          "subject": "Psychology",
+          "stars": 4,
+          "review": "Dr. Agarwal, who specializes in developmental psychology, teaches Psychology. Her classes are very engaging, and she encourages active participation. Her research is also very insightful."
+      },
+      {
+          "professor": "Prof. Vishal Mehta",
+          "subject": "Economics",
+          "stars": 4,
+          "review": "Prof. Mehta, an Economics professor with a focus on microeconomics, makes the subject interesting with real-world examples. His exams are tough but fair."
       }
-    ]
-  }
-  
+  ]
+}
