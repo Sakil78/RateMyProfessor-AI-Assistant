@@ -1,66 +1,82 @@
-'use client';
-import { Box, Button, Stack, TextField, Paper, Typography } from "@mui/material";
+"use client";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from "react-markdown";
-import Image from "next/image";
 
 export default function Home() {
-
   const [messages, setMessages] = useState([
     {
-      role: 'assistant',
-      content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
+      role: "assistant",
+      content:
+        "Hello, I am Rate My Professor Support Assistant. How can I help you today?",
     },
   ]);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [lastMessageTime, setLastMessageTime] = useState(0);
   const messagesEndRef = useRef(null);
+
+  const sanitizeMessage = (msg) => {
+    // Optional: Refine this function based on specific needs
+    return msg.trim().replace(/\b(\w+)\s+\1\b/g, '$1').trim();
+  };
 
   const sendMessage = async () => {
     if (message.trim() === "") return; // Prevent sending empty messages
+
+    const now = Date.now();
+    if (now - lastMessageTime < 1000) { // 1 second cooldown
+      return;
+    }
+    setLastMessageTime(now);
+
     setLoading(true);
+    const sanitizedMessage = sanitizeMessage(message);
     setMessage("");
-    setMessages((messages) => [
-      ...messages,
-      { role: "user", content: message },
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { role: "user", content: sanitizedMessage },
       { role: "assistant", content: "" },
     ]);
+
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify([...messages, { role: "user", content: message }]),
+        body: JSON.stringify([...messages, { role: "user", content: sanitizedMessage }]),
       });
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
 
-      let result = "";
-      await reader.read().then(function processText({ done, value }) {
-        if (done) return result;
+      let buffer = "";
+      let done = false;
+      
+      while (!done) {
+        const { done: isDone, value } = await reader.read();
+        done = isDone;
+        const text = decoder.decode(value || new Uint8Array(), { stream: true });
+        buffer += text;
 
-        const text = decoder.decode(value || new Uint8Array(), {
-          stream: true,
-        });
-
-        setMessages((messages) => {
-          const updatedMessages = [...messages];
-          const lastMessage = updatedMessages[updatedMessages.length - 1];
-          lastMessage.content += text;
-          return updatedMessages;
-        });
-
-        return reader.read().then(processText);
-      });
+        if (buffer.length > 100 || done) { // Adjust buffer size as needed
+          setMessages((prevMessages) => {
+            const updatedMessages = [...prevMessages];
+            const lastMessage = updatedMessages[updatedMessages.length - 1];
+            lastMessage.content += buffer;
+            return updatedMessages;
+          });
+          buffer = "";
+        }
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
-      setMessages((messages) => [
-        ...messages,
+      setMessages((prevMessages) => [
+        ...prevMessages,
         {
           role: "assistant",
-          content: "Sorry, something went wrong. Please try again.",
+          content: `Error: ${error.message}. Please try again.`,
         },
       ]);
     } finally {
@@ -91,11 +107,10 @@ export default function Home() {
       flexDirection="column"
       justifyContent="center"
       alignItems="center"
-      sx={{
-         backgroundColor: "#5865F2",
-      }}
     >
-      <Typography variant="h4" >Search For Professor of Your Type</Typography>
+      <Typography variant="h4" gutterBottom>
+        Search For Professor of Your Type
+      </Typography>
 
       <Stack
         direction="column"
@@ -107,7 +122,6 @@ export default function Home() {
         sx={{
           mx: "auto",
           borderRadius: "16px",
-          backgroundColor:'#b9dbe1'
         }}
       >
         <Stack
@@ -117,25 +131,19 @@ export default function Home() {
           overflow="auto"
           maxHeight="100%"
         >
-          {messages.map((message, index) => (
+          {messages.map((msg, index) => (
             <Box
               key={index}
               display="flex"
-              justifyContent={
-                message.role === "assistant" ? "flex-start" : "flex-end"
-              }
+              justifyContent={msg.role === "assistant" ? "flex-start" : "flex-end"}
             >
               <Box
-                bgcolor={
-                  message.role === "assistant"
-                    ? "primary.main"
-                    : "secondary.main"
-                }
+                bgcolor={msg.role === "assistant" ? "primary.main" : "secondary.main"}
                 color="white"
-                borderRadius={16}
+                borderRadius='25px'
                 p={3}
               >
-                <ReactMarkdown>{message.content}</ReactMarkdown>
+                <ReactMarkdown>{msg.content}</ReactMarkdown>
               </Box>
             </Box>
           ))}
@@ -157,11 +165,10 @@ export default function Home() {
             disabled={loading}
             aria-label="Send message"
           >
-            Send
+            {loading ? "Sending..." : "Send"}
           </Button>
         </Stack>
       </Stack>
     </Box>
-    
   );
 }
