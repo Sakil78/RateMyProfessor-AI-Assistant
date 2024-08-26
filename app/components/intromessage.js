@@ -49,8 +49,8 @@ const IntroMessage = ({ introVisible }) => {
             color: "#1e3557",
           }}
         >
-          Ready to assist you with choosing your professor.
-          Let us get started!
+          I'm here to guide you in choosing the best professor.
+          Shall we begin?
         </Typography>
       </Box>
     </Collapse>
