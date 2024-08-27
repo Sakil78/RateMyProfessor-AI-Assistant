@@ -100,21 +100,10 @@ export default function Home() {
       flexDirection:"column",
       color:"#fff",
       justifyContent:"space-between",
-      alignItems:"center"
+      alignItems:"center",
+      backgroundColor:"#0d0d30"
     }}>
-      {/* Background Image with Blur */}
-      <Box sx={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundImage: 'url("/back.jpg")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        filter: 'blur(2px)',  
-        zIndex: -1,  
-      }} />
+
       <Navbar />
 
       <IntroMessage introVisible={introVisible} />
@@ -125,7 +114,7 @@ export default function Home() {
         maxWidth="600px"
         height="90%"
         borderRadius={2}
-        bgcolor="rgba(255, 255, 255, 0.3)"
+        bgcolor="rgba(255, 255, 255, 0.5)"
         py={2}
         px={1}
         spacing={3}
@@ -165,7 +154,7 @@ export default function Home() {
               }
             >
               <Box
-                bgcolor={message.role === "assistant" ? "#6445ff" : "white"}
+                bgcolor={message.role === "assistant" ? "#0d0d30" : "white"}
                 color={message.role === "assistant" ? "white" : "black"}
                 borderRadius={5}
                 boxShadow={5}

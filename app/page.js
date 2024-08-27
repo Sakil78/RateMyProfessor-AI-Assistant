@@ -28,7 +28,7 @@ export default function LandingPage() {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundImage: 'url("/back.jpg")',
+        backgroundImage: 'url("/starry-sky.png")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         filter: 'blur(2px)',  
