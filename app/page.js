@@ -1,8 +1,7 @@
 "use client";
-import { Box, Button, Typography, Stack } from "@mui/material";
+import { Box, Button, Typography, Grid } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Navbar from "./components/Navbar";
-import Image from "next/image";
 
 export default function LandingPage() {
   const router = useRouter();
@@ -13,91 +12,119 @@ export default function LandingPage() {
 
   return (
     <>
-      <Box
-        width="100vw"
-        height="100vh"
-        display="flex"
-        flexDirection="column"
-        bgcolor="#f5f5f5"
-      >
+      <Box sx={{
+      backgroundColor: '#0d0d30',
+      backgroundImage: 'url("/starry-sky.png")',  // Starry night sky background image
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      color: '#fff',
+    }}>
         <Navbar />
-        <Stack
-          direction="row"
-          flexGrow={1}
-          justifyContent="center"
-          alignItems="center"
-          padding={4}
-          spacing={4}
-        >
-          {/* Left Side */}
-          <Stack direction="column" spacing={2} alignItems="flex-start">
-          <Typography
-            variant="h2"
-            sx={{
-              color: "#1e3557",
-              fontWeight: "bold",
-              fontFamily: "'Nunito', sans-serif" }}
-          >
-            Welcome to Rate My
-          </Typography>
-          <Typography
-              variant="h2"
-              sx={{
-                color: "#1e3557",
-                fontWeight: "bold",
-                fontFamily: "'Nunito', sans-serif"
+        <Box sx={{
+        flex: '1',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 4,
+      }}>
+        <Grid container spacing={4} alignItems="center" justifyContent="space-between">
+          <Grid item xs={12} md={6}>
+          <Typography 
+              variant="h2" 
+              component="h1" 
+              fontWeight="bold" 
+              gutterBottom
+              sx={{ 
+                textTransform: 'uppercase',  // All-caps for the headline
+                fontSize: '3rem',  // Adjust font size
+                fontWeight: '1000', // Adjust font weight
+                letterSpacing: '2px' // Letter spacing for impact
               }}
             >
-              Professor Assistant!
+            Welcome to Rate
             </Typography>
-          <Typography
-            variant="h6"
-            sx={{ color: "#1e3557", fontFamily: "'Nunito', sans-serif" }}
-          >
+            <Typography 
+              variant="h2" 
+              component="h1" 
+              fontWeight="bold" 
+              gutterBottom
+              sx={{ 
+                textTransform: 'uppercase',  // All-caps for the headline
+                fontSize: '3rem',  // Adjust font size
+                fontWeight: '1000', // Adjust font weight
+                letterSpacing: '2px' // Letter spacing for impact
+              }}
+            >
+            My Professor
+            </Typography>
+            <Typography 
+              variant="h2" 
+              component="h1" 
+              fontWeight="bold" 
+              gutterBottom
+              sx={{ 
+                textTransform: 'uppercase',  // All-caps for the headline
+                fontSize: '3rem',  // Adjust font size
+                fontWeight: '1000', // Adjust font weight
+                letterSpacing: '2px' // Letter spacing for impact
+              }}
+            >
+            Assistant!
+            </Typography>
+            <Typography 
+              variant="h6" 
+              paragraph
+              sx={{
+                color: '#b0b3c1'  // Slightly lighter text color for paragraph
+              }}
+            >
             Get personalized support and information!
           </Typography>
           <Button
-            variant="contained"
-            onClick={navigateToMain}
-            sx={{
-              padding: "10px 20px",
-              borderRadius: "25px",
-              fontFamily: "'Nunito', sans-serif",
-              fontSize: "16px",
-              bgcolor: "#1e3557",
-              color: "white",
-              "&:hover": {
-                bgcolor: "#162842",
-              },
-            }}
-          >
-            Ask Our AI →
-          </Button>
-        </Stack>
+                variant="contained"
+                onClick={navigateToMain}
+                sx={{
+                  padding: "10px 20px",
+                  borderRadius: "25px",
+                  fontFamily: "'Nunito', sans-serif",
+                  fontSize: "16px",
+                  bgcolor: "#5865f2", //#1e3557
+                  color: '#fff', //white
+                  "&:hover": {
+                    bgcolor: "#162842",
+                  },
+                  mt: 2,  // Add margin-top for spacing
+                }}
+              >
+                Ask Our AI →
+              </Button>
+            </Grid>
+          
 
           {/* Right Side */}
-          <Box
-            sx={{
-              width: "50%",
-              height: "auto",
-              display: { xs: "none", md: "block" },
-            }}
-          >
-            <Image
+          <Grid item xs={12} md={6}>
+          <Box sx={{ textAlign: 'center' }}>
+          
+            <img
               src="/1.jpg"
               alt="Rate My Professor AI"
-              width={380}
-              height={280}
-          style={{
-            borderRadius: '8px',
-            maxWidth: '100%',
-            height: 'auto',
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-          }}
+              style={{
+                width: '100%',
+                height: 'auto', 
+                maxWidth: '100%',
+                maxHeight: '100%',
+                borderRadius: '8px',
+                boxShadow: '0px 0px 15px rgba(255, 255, 255, 0.5)'  // Subtle glow effect
+              }} 
             />
           </Box>
-        </Stack>
-      </Box>
+          </Grid>
+        </Grid>
+      </Box>  
+    </Box>
     </>
   );
 }

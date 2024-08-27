@@ -91,10 +91,12 @@ export default function Home() {
 
   return (
     <Box
+      bgcolor="#0d0d30"
       width="100vw"
       height="100vh"
       display="flex"
       flexDirection="column"
+      color="#fff"
       justifyContent="space-between"
       alignItems="center"
     >

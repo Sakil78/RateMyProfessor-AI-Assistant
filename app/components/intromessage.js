@@ -25,7 +25,6 @@ const IntroMessage = ({ introVisible }) => {
             marginBottom: 1,
             fontFamily: "'Nunito', sans-serif",
             lineHeight: "40px",
-            color: "#1e3557",
           }}
         >
           Hi there!
@@ -36,7 +35,6 @@ const IntroMessage = ({ introVisible }) => {
             fontWeight: "bold",
             marginBottom: 0.5,
             fontFamily: "'Nunito', sans-serif",
-            color: "#1e3557",
           }}
         >
           Can I help you with anything?
@@ -46,7 +44,7 @@ const IntroMessage = ({ introVisible }) => {
             marginBottom: 1,
             fontFamily: "'Nunito', sans-serif",
             fontSize: "14px",
-            color: "#1e3557",
+            color: "#b0b3c1",
           }}
         >
           I'm here to guide you in choosing the best professor.

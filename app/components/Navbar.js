@@ -10,11 +10,12 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" sx={{ bgcolor: "white", boxShadow: "none", paddingTop: "10px" }}>
+    <AppBar position="static" color="transparent" elevation={0}
+    sx={{ boxShadow: "none", paddingTop: "10px" }}>
       <Toolbar sx={{ justifyContent: "space-between", paddingX: "5px"}}>
         <Box display="flex" alignItems="center">
         <Button onClick={goToLandingPage} sx={{ textTransform: "none", padding: 0 }}>
-          <Typography variant="h6" component="div" sx={{ color: "#1e3557", fontWeight: 'bold', fontFamily: "'Nunito', sans-serif" }}>
+          <Typography variant="h6" noWrap component="div" sx={{color: '#fff', fontWeight: 'bold', fontFamily: "'Nunito', sans-serif" }}>
             Rate My Professor
           </Typography>
           </Button>
