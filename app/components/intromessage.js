@@ -44,10 +44,10 @@ const IntroMessage = ({ introVisible }) => {
             marginBottom: 1,
             fontFamily: "'Nunito', sans-serif",
             fontSize: "14px",
-            color: "#b0b3c1",
+            color: "#dbc8fb",
           }}
         >
-          I'm here to guide you in choosing the best professor.
+          I am here to guide you in choosing the best professor.
           Shall we begin?
         </Typography>
       </Box>
