@@ -44,8 +44,8 @@ pip install -r requirements.txt
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/MOHAMMED-IQRAMUL/Rate-My-Professor-Using-RAG.git
-   cd Rate-My-Professor-Using-RAG
+   git clone https://github.com/Sakil78/RateMyProfessor-AI-Assistant.git
+   cd RateMyProfessor-AI-Assistant
    ```
 
 2. **Install dependencies**
@@ -71,7 +71,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-- **Interact with ProfessAI**: Open the web app in your browser and start typing your queries in the chat interface. The AI assistant will provide recommendations based on your inputs.
+- **Interact with Rate My Professor**: Open the web app in your browser and start typing your queries in the chat interface. The AI assistant will provide recommendations based on your inputs.
 
 - **Customizing Recommendations**: You can modify the system prompt or adjust the ranking criteria in the backend to better suit your needs.
 
