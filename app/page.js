@@ -3,6 +3,7 @@ import * as React from 'react';
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { useRouter } from 'next/navigation';  // Correct import for App Router
 import Navbar from './components/Navbar';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export default function LandingPage() {
 
