@@ -21,7 +21,7 @@ pip install pip-chill
 pip-chill >requirements.txt
 pip install -r requirements.txt
 ```
-## Features
+##🚀 Features
 
 - **Personalized Professor Recommendations**: Get top 3 professor recommendations based on your specific queries.
 - **Comprehensive Review Analysis**: Analyze detailed reviews including teaching style, course difficulty, and grading fairness.
@@ -29,7 +29,7 @@ pip install -r requirements.txt
 - **Structured and Concise Information**: Receive well-organized summaries to help you make informed decisions.
 - **Privacy and Security**: Handles data securely, without sharing any personal information that isn’t explicitly stated in official reviews.
 
-## Technology Stack
+##🛠️ Technology Stack
 
 - **Frontend**: React with Material-UI
 - **Backend**: Next.js
@@ -37,7 +37,7 @@ pip install -r requirements.txt
 - **Database**: Pinecone for vector storage and retrieval
 - **APIs**: Google Generative AI, OpenAI
 
-## Installation
+##🔧 Installation
 
 1. **Clone the repository**
    ```bash
